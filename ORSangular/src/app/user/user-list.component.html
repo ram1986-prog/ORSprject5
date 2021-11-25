@@ -1,0 +1,119 @@
+<body class="container-fluid context">
+  <div class="" style="padding-top: 0%; background-image: url(./assets/list.jpg); background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;width:100%;
+    height: 900px;bottom: 0%;">
+    <div class="d-flex bg-primary text-white paddin ">
+      <h1 class="text-center container-fluid ">{{'User List'|translate}}</h1>
+    </div>
+    <div class="text-center row">
+      <div class="col-2"></div>
+      <form class="form-inline pt-3 mr-3 ">
+        <div class="form-group  pr-3">
+          <label for="fName" class="form-check-label pr-3 ">{{'First Name'|translate}} : </label>
+          <input type="text" class="form-control" placeholder="{{'Enter First Name'|translate}}" name="firstName"
+            [(ngModel)]="form.searchParams.firstName" id="fName">
+        </div>
+        <div class="form-group pr-3">
+          <label for="lName" class="form-check-label pr-3 ">{{ 'Login Id'|translate }} : </label>
+          <input type="text" class="form-control" name="login" id="lName" placeholder="{{'Enter Login Id'|translate}}"
+            [(ngModel)]="form.searchParams.login">
+        </div>
+        <div class="form-group pr-3">
+          <label for="role" class="form-check-label pr-3">{{'Role'|translate}} :</label>&nbsp;
+          <select class="form-control" name="roleId" [(ngModel)]="form.searchParams.roleId" id="roleId">
+            <option [value]=0 [disabled]="true" selected disabled>{{'Select User Role'|translate}}</option>
+            <option *ngFor="let opt of form.preload.list" [value]="opt.id">{{opt.name}}</option>
+          </select>
+        </div>
+        <button class="btn-primary btn" (click)="submit()">{{'Search'|translate}}</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary" (click)="reset()">{{'Reset'|translate}}</button>
+      </form>
+    </div>
+    <br>
+    <div class="col-4 " *ngIf="form.error" class="alert alert-danger text-center"> {{form.message}}</div>
+    <div class="col-4 " *ngIf="!form.error && (form.message != null)" class="alert alert-success text-center">
+      {{form.message}}</div>
+
+    
+    <div class="p-1">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="thead-light text-uppercase">
+            <tr>
+              <th>{{'S.No'|translate }}</th>
+              <th>{{'Image'|translate}}</th>
+              <th>{{'First Name' |translate}}</th>
+              <th>{{'Last Name' |translate }}</th>
+              <th>{{'Login' | translate  }}</th>
+              <th>{{'Gender'| translate}}</th>
+              <th>{{'Role'|translate}}</th>
+              <th>{{'Phone'|translate}}</th>
+              <th>{{'DOB'|translate}}</th>
+              <th>{{'Edit'|translate}} /{{'Delete'|translate}}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let user of form.list; let i = index">
+              <td> {{((form.pageNo)*5)+i+1}} </td>
+              <td>
+                <div *ngIf="user.picName" >
+                  
+                    
+                  
+                <img src="http://localhost:8080/User/getPic/{{user.id}}" height="30px" width="40px">
+              </div>
+              <div *ngIf="!user.picName" >
+                <img src="./assets/default.jpg" height="30px" width="40px">
+              </div> 
+              </td>
+              
+              <td> {{ user.firstName}} </td>
+              <td> {{ user.lastName }} </td>
+              <td> {{ user.login }} </td>
+              <td> {{ user.gender }} </td>
+              <td> {{ user.roleName }} </td>
+              <td> {{ user.mobileNo }} </td>
+              <td> {{ user.dob | date : 'dd-MM-yyyy'}} </td>
+              <td>
+                <div *ngIf="user.roleId==1;then read else write"></div>
+                <ng-template #read><i class="fa fa-edit" style="font-size:20px;color:grey"></i> / <i
+                    class="fa fa-trash-o" style="font-size:20px;color:grey"></i></ng-template>
+                <ng-template #write><a (click)="forward( '/user/' +  user.id)" style="cursor: pointer;">
+                    <i class="fa fa-edit" style="font-size:20px;color:blue"></i>
+                  </a> / <a (click)="delete(user.id)" style="cursor: pointer;">
+                    <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                  </a></ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="form-inline ">
+          <div class="col-4 text-left ">
+            <div *ngIf="form.pageNo>0; then sus else fail"></div>
+            <ng-template #sus>
+              <button (click)="previous()" class="btn btn-success">{{'previous'|translate}}</button>
+            </ng-template>
+            <ng-template #fail>
+              <button (click)="previous()" disabled class="btn btn-light ">{{'previous'|translate}}</button>
+            </ng-template>
+          </div>
+          <div class="col-4 text-center ">
+            <button class="btn-primary btn " (click)="forward('/user/')">{{'Add'|translate}}</button>
+          </div>
+          <div class="col-4 text-right ">
+            <div *ngIf="form.count>(form.pageSize*(form.pageNo+1));then susN else failN"></div>
+            <ng-template #susN>
+              <button (click)="next()" class="btn btn-success">{{'next'|translate}}</button>
+            </ng-template>
+            <ng-template #failN>
+              <button (click)="next()" disabled class="btn btn-light">{{'next'|translate}}</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+</body>

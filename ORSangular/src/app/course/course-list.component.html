@@ -1,0 +1,101 @@
+<body class="container-fluid text-center">
+  <div class="content-wrapper" style="padding-top: 0%; background-image: url(./assets/list.jpg); background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;width:100%;
+    height: 850px;bottom: 0%;">
+    <div class="d-flex bg-primary text-white paddin ">
+      <h1 class="text-center container-fluid ">{{'Course List'|translate}}</h1>
+    </div>
+    <div class="text-center row">
+      <div class="col-2"></div>
+      <form class="form-inline pt-3  ">
+        <div class="form-group  pr-3">
+          <label for="courseName" class="form-check-label pr-3 ">{{'Name'|translate}} : </label>
+          <input type="text" class="form-control" placeholder="Enter Course Name" name="courseName"
+            [(ngModel)]="form.searchParams.courseName" id="courseName">
+        </div>
+        <div class="form-group  pr-3">
+          <label for="courseDescription" class="form-check-label pr-3 ">{{'Description'|translate}} : </label>
+          <input type="text" class="form-control" placeholder="Enter Course Description" name="courseDescription"
+            [(ngModel)]="form.searchParams.courseDescription" id="fName">
+        </div>
+        <div class="form-group pr-3">
+          <label for="courseDuration" class="form-check-label pr-3">{{'Duration'|translate}}:
+          </label>
+          <span class="text-danger ml-auto mb-auto"> {{form.inputerror.courseDuration}} </span>
+          <select [(ngModel)]="form.data.courseDuration" name="gender" class="form-control" id="courseDuration">
+            <option [value]=default [disabled]="true" selected disabled>Select Course Duration</option>
+            <option [value]="1">1 Year</option>
+            <option [value]="2">2 Year</option>
+            <option [value]="3">3 Year</option>
+            <option [value]="4">4 Year</option>
+            <option [value]="5">5 Year</option>
+          </select>
+        </div>
+        <button class="btn-primary btn" (click)="submit()">{{'Search'|translate}}</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary" (click)="reset()">{{'Reset'|translate}}</button>
+      </form>
+    </div>
+    <br>
+    <div class="col-6  " *ngIf="form.error" class="alert alert-danger"> {{form.message}}</div>
+    <div class="col-6 " *ngIf="!form.error && (form.message != null)" class="alert alert-success">
+      {{form.message}}</div>
+
+    <br>
+    <div class="p-1">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="thead-light text-uppercase">
+            <tr>
+              <th>{{'S.No'|translate}}</th>
+              <th>{{'Course Name'|translate}}</th>
+              <th>{{'Course Description'|translate}}</th>
+              <th>{{'Course Duration'|translate}}</th>
+              <th>{{'Edit'|translate}} / {{'Delete'|translate}}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let course of form.list; let i = index">
+              <td> {{((form.pageNo)*5)+i+1}} </td>
+              <td> {{ course.name }} </td>
+              <td> {{ course.description }} </td>
+              <td> {{ course.duration }} </td>
+              <td>
+                <a (click)="forward( '/course/' +  course.id)" style="cursor: pointer;">
+                  <i class="fa fa-edit" style="font-size:20px;color:blue"></i>
+                </a> / <a (click)="delete(course.id)" style="cursor: pointer;">
+                  <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class=" col-12 form-inline mb-0  ">
+          <div class="col-4 text-left ">
+            <div *ngIf="form.pageNo>0; then sus else fail"></div>
+            <ng-template #sus>
+              <button (click)="previous()" class="btn btn-success">{{'previous'|translate}}</button>
+            </ng-template>
+            <ng-template #fail>
+              <button (click)="previous()" disabled class="btn btn-light ">{{'previous'|translate}}</button>
+            </ng-template>
+          </div>
+          <div class="col-4 text-center ">
+            <button class="btn-primary btn " (click)="forward('/course/')">{{'Add'|translate}}</button>
+          </div>
+          <div class="col-4 text-right ">
+            <div *ngIf="form.count>(form.pageSize*(form.pageNo+1));then susN else failN"></div>
+            <ng-template #susN>
+              <button (click)="next()" class="btn btn-success">{{'next'|translate}}</button>
+            </ng-template>
+            <ng-template #failN>
+              <button (click)="next()" disabled class="btn btn-light">{{'next'|translate}}</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+</body>

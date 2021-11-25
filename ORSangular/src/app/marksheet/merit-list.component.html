@@ -1,0 +1,60 @@
+<body class="container-fluid text-center">
+    <div class="" style="padding-top: 0%; background-image: url(./assets/list.jpg); background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;width:100%;
+      height: 850px;bottom: 0%;">
+      <div class="d-flex bg-primary text-white ">
+        <h1 class="text-center container-fluid ">{{'Marksheet Merit List'|translate}}</h1>
+      </div>
+      
+    <br>
+      <div class="col-6  " *ngIf="form.error" class="alert alert-danger"> {{form.message}}</div>
+      <div class="col-6 " *ngIf="!form.error && (form.message != null)"
+        class="alert alert-success">
+        {{form.message}}</div>
+    
+      <br>
+      <div class="p-1">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-light text-uppercase">
+              <tr>
+                <th>{{'S.No'|translate}}</th>
+                <th>{{'Roll No'|translate}}</th>
+                <th>{{'Student Name'|translate}}</th>
+                <th>{{'Physics'|translate}}</th>
+                <th>{{'Maths'|translate}}</th>
+                <th>{{'Chemistry'|translate}}</th>
+                <th>{{'Total'|translate}}</th>
+                <th>{{'Percentage'|translate}}</th>
+                <th>{{'Result'|translate}}</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr *ngFor="let marksheet of form.list; let i = index">
+                <td> {{i+1}}  </td>
+                <td> {{ marksheet.rollNo }} </td>
+                <td> {{ marksheet.name }} </td>
+                <td> {{ marksheet.physics }} </td>
+                <td> {{ marksheet.maths }} </td>
+                <td> {{ marksheet.chemistry }} </td>
+                <td> {{ (marksheet.physics+marksheet.maths+marksheet.chemistry) }} /300</td>
+                <td> {{ (marksheet.physics+marksheet.maths+marksheet.chemistry)/3 | number:'1.0-2' }} </td>
+                <td> <div class="" *ngIf="result(marksheet.physics,marksheet.maths,marksheet.chemistry);then pass else fail " ></div>
+                  <ng-template #pass ><div class="text-success font-weight-bold"> Pass </div></ng-template>
+                  <ng-template #fail ><div class="text-danger font-weight-bold "> Fail </div></ng-template>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+          <div class=" col-sm-4 text-center ">
+            <button class="btn-primary btn " (click)="forward('/')">{{'Back'|translate}}</button>
+          </div>
+        </div>
+      </div>
+      
+      <br><br>
+      </div>
+    </body>

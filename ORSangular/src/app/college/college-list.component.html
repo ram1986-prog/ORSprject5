@@ -1,0 +1,98 @@
+<body class="container-fluid text-center">
+  <div class="content-wrapper" style="padding-top: 0%;background-image: url(./assets/list.jpg); background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;width:100%;
+    height: 850px;bottom: 0%;">
+    <div class="d-flex bg-primary text-white paddin ">
+      <h1 class="text-center container-fluid ">{{'College List'|translate}}</h1>
+    </div>
+    <div class="text-center row">
+      <div class="col-2"></div>
+      <form class="form-inline pt-3  ">
+        <div class="form-group  pr-3">
+          <label for="name" class="form-check-label pr-3 ">{{'College Name'|translate}} : </label>
+          <input type="text" class="form-control" placeholder="Enter College Name" name="firstName"
+            [(ngModel)]="form.searchParams.name" id="name">
+        </div>
+        <div class="form-group pr-3">
+          <label for="city" class="form-check-label pr-3 ">{{'City'|translate}} : </label>
+          <input type="text" class="form-control" name="city" id="city" placeholder="Enter College City"
+            [(ngModel)]="form.searchParams.city">
+        </div>
+        <div class="form-group pr-3">
+          <label for="state" class="form-check-label pr-3 ">{{'State'|translate}} : </label>
+          <input type="text" class="form-control" name="state" id="state" placeholder="Enter College State"
+            [(ngModel)]="form.searchParams.state">
+        </div>
+
+        <button class="btn-primary btn" (click)="submit()">{{'Search'|translate}}</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary" (click)="reset()">{{'Reset'|translate}}</button>
+      </form>
+    </div>
+    <br>
+    <div class="col-6  " *ngIf="form.error" class="alert alert-danger"> {{form.message}}</div>
+    <div class="col-6 " *ngIf="!form.error && (form.message != null)" class="alert alert-success">
+      {{form.message}}</div>
+
+    <br>
+    <div class="p-1">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+          <thead class="thead-light text-uppercase">
+            <tr>
+              <th>{{'S.No'|translate}}</th>
+              <th>{{'Name'|translate}}</th>
+              <th>{{'Address'|translate}}</th>
+              <th>{{'City'|translate}}</th>
+              <th>{{'State'|translate}}</th>
+              <th>{{'Phone No'|translate}}</th>
+              <th>{{'Edit'|translate}} / {{'Delete'|translate}}</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let college of form.list; let i = index">
+              <td> {{((form.pageNo)*5)+i+1}} </td>
+              <td> {{ college.collegeName }} </td>
+              <td> {{ college.address }} </td>
+              <td> {{ college.city }} </td>
+              <td> {{ college.state }} </td>
+              <td> {{ college.phoneNo }} </td>
+              <td><a (click)="forward( '/college/' +  college.id)" style="cursor: pointer;">
+                  <i class="fa fa-edit" style="font-size:20px;color:blue"></i>
+                </a> / <a (click)="delete(college.id)" style="cursor: pointer;">
+                  <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class=" col-12 form-inline mb-0  ">
+          <div class="col-4 text-left ">
+            <div *ngIf="form.pageNo>0; then sus else fail"></div>
+            <ng-template #sus>
+              <button (click)="previous()" class="btn btn-success">{{'previous'|translate}}</button>
+            </ng-template>
+            <ng-template #fail>
+              <button (click)="previous()" disabled class="btn btn-light ">{{'previous'|translate}}</button>
+            </ng-template> 
+          </div>
+          <div class="col-4 text-center ">
+            <button class="btn-primary btn " (click)="forward('/college/')">{{'Add'|translate}}</button>
+          </div>
+          <div class="col-4 text-right ">
+            <div *ngIf="form.count>(form.pageSize*(form.pageNo+1));then susN else failN"></div>
+            
+            <ng-template #susN>
+              <button (click)="next()" class="btn btn-success">{{'next'|translate}}</button>
+            </ng-template>
+            <ng-template #failN>
+              <button (click)="next()" disabled class="btn btn-light">{{'next'|translate}}</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+</body>

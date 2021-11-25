@@ -1,0 +1,125 @@
+<body class=" container-fluid row">
+  <div class=" row ml-3" style="padding-top: 0%; background-image: url(./assets/form.jpg); background-repeat: no-repeat;
+  background-attachment: fixed;background-size: cover;width:100%;height: 700px;bottom: 0%;">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4 pt-5">
+          <div class="card">
+              <div class="card-body">
+                  <div class="text-center mb-4">
+                      <div *ngIf="form.data.id>0; then hUpdate else hAdd"></div>
+                      <ng-template #hAdd>
+                          <h1>{{'Add Marksheet'|translate}}</h1>
+                      </ng-template>
+                      <ng-template #hUpdate>
+                          <h1>{{'Update Marksheet'|translate}}</h1>
+                      </ng-template>
+                  </div>
+                  <div class="col-4" *ngIf="form.error && form.message!=null" class="alert alert-danger">
+                      {{form.message}}
+                  </div>
+                  <div class="col-4" *ngIf="!form.error && form.message!=null" class=" alert alert-success">
+                      {{form.message}}
+                  </div>
+                  <form>
+                      <div class="form-group row">
+                          <label for="rollNo" class="form-check-label">{{'Roll No'|translate}}:
+                              <span class="text-danger">*</span></label>
+
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-id-card grey-text"></i> </div>
+                              </div>
+                              <input type="text" [(ngModel)]="form.data.rollNo" name="rollNo" class="form-control"
+                                  placeholder="Enter RollNo[00XX00]" id="rollNo" [value]="form.data.rollNo">
+                          </div>
+                          <span class="text-danger mr-auto mb-auto  "> {{form.inputerror.rollNo}}
+                          </span>
+                      </div>
+                      <div class="form-group row ">
+                          <label for="studentId" class="form-check-label ">{{'Student Name'|translate}} :<span
+                                  class="text-danger">*</span>
+                          </label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-user grey-text"></i> </div>
+                              </div>
+                              <select class="form-control" name="studentId" [(ngModel)]="form.data.studentId"
+                                  id="studentId">
+                                  <option [value]=default [disabled]="true" selected disabled>Select Student Name
+                                  </option>
+                                  <option *ngFor="let opt of form.preload.list" [value]="opt.id">{{opt.firstName}} {{opt.lastName}}
+                                  </option>
+                              </select>
+                          </div>
+
+                          <span class="text-danger mr-auto mb-auto " id="studentId"> {{form.inputerror.studentId}}
+                          </span>
+                      </div>
+
+                      <div class="form-group row">
+                          <label for="physics" class="form-check-label">{{'Physics'|translate}}:
+                              <span class="text-danger">*</span>
+                          </label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-sticky-note grey-text"></i> </div>
+                              </div>
+                              <input type="text" [(ngModel)]="form.data.physics" name="physics" class="form-control"
+                                  placeholder="Enter Physics Marks" id="physics">
+                          </div>
+
+                          <span class="text-danger mr-auto mb-auto"> {{form.inputerror.physics}} </span>
+                      </div>
+                      <div class="form-group row">
+                          <label for="maths" class="form-check-label">{{'Maths'|translate}}:
+                              <span class="text-danger">*</span>
+                          </label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-sticky-note grey-text"></i> </div>
+                              </div>
+                              <input type="text" [(ngModel)]="form.data.maths" name="maths" class="form-control"
+                                  placeholder="Enter Maths Marks" id="maths">
+                          </div>
+
+                          <span class="text-danger mr-auto mb-auto"> {{form.inputerror.maths}} </span>
+                      </div>
+                      <div class="form-group row">
+                          <label for="chemistry" class="form-check-label">{{'Chemistry'|translate}}:
+                              <span class="text-danger">*</span>
+                          </label>
+                          <div class="input-group">
+                              <div class="input-group-prepend">
+                                  <div class="input-group-text"><i class="fa fa-sticky-note grey-text"></i> </div>
+                              </div>
+                              <input type="text" [(ngModel)]="form.data.chemistry" name="chemistry"
+                                  class="form-control" placeholder="Enter Chemistry Marks" id="chemistry">
+                          </div>
+
+                          <span class="text-danger mr-auto mb-auto"> {{form.inputerror.chemistry}} </span>
+                      </div>
+
+                      <div class="form-inline">
+                          <div class="col-4"></div>
+                          <div class="text-center">
+                              <div *ngIf="form.data.id>0; then update else add"></div>
+                              <ng-template #add>
+                                  <button (click)="submit()"
+                                      class="btn btn-success">{{'Save'|translate}}</button>&nbsp;
+                                  <input type="reset" class="btn btn-secondary" (click)="reset()">
+                              </ng-template>
+                              <ng-template #update>
+                                  <button (click)="submit()"
+                                      class="btn btn-success ">{{'Update'|translate}}</button>&nbsp;
+                                  <button (click)="cancel()" class="btn btn-secondary">{{'Cancel'|translate}}</button>
+                              </ng-template>
+                          </div>
+                      </div>
+
+                  </form>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-4"></div>
+  </div>
+</body>

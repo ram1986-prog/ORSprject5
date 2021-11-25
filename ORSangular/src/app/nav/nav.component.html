@@ -1,0 +1,220 @@
+<!--LOG IN START-->
+<div *ngIf="checkLogin()">
+
+
+  <body class="container-fluid"
+    style="background-image: url(./assets/form.jpg); background-size: cover; background-position: center center; background-repeat: no-repeat; background-attachment: fixed">
+
+    <nav class="image-responsive" class="navbar navbar-expand-lg "
+      style="background-image: url(./assets/form.jpg);border-bottom: 3px solid blue;">
+
+
+
+      
+      <a class="navbar-brand" routerLink="/dashboard">
+        <img class="image-responsive" src='./assets/logo.png' height="30px">
+
+      </a>
+      <style>
+      .blink{
+        width:50px;
+        height: 50px;
+        background-color: red;
+        padding: 15px;	
+        text-align: center;
+        line-height: 50px;
+      }
+      span{
+        font-size: 15px;
+        font-family: cursive;
+        color: blue;
+        animation: blink 10s linear infinite;
+      }
+      @keyframes blink{
+        
+        50%{opacity: 20;}
+      }
+      </style>
+      
+      <a class="nav-link" [routerLink]="['/dashboard']" class="blink" class="image-responsive" >
+        <strong>NCS Pvt Ltd</strong>
+    </a>
+
+      <button class="navbar-toggler navbar-light "  type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse transparent image-responsive" id="navbarNav">
+        <!-- collapse navbar-collapse transparent  -->
+
+        <select #locale (change)='changeLocale(locale.value)' class="image-responsive" class=" text-dark"
+          class="btn  dropdown-toggle transparent">
+          <option class="text-dark" value="en">English</option>
+          <option class="text-dark" value="hi">{{'Hindi' | translate }}</option>
+        </select>
+        <ul class="nav navbar-nav " style="list-style-type: none;">
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'User'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/user" class="dropdown-item"><i class="fa fa-user-plus"></i> {{'Add User'|translate}}</a>
+              <a routerLink="/userlist" class="dropdown-item"><i class="fa fa-list"></i> {{'User List'|translate}}</a>
+            </div>
+
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'Role'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/role" class="dropdown-item"><i class="fa fa-user-circle"></i>{{'Add
+                Role'|translate}}</a>
+              <a routerLink="/rolelist" class="dropdown-item"><i class="fa fa-list-circle"></i> {{'Role
+                List'|translate}}</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent "
+              data-toggle="dropdown">{{'College'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/college" class="dropdown-item"><i class="fa fa-university"></i> {{'Add
+                College'|translate}}</a>
+              <a routerLink="/collegelist" class="dropdown-item"><i class="fa fa-list"></i> {{'College
+                List'|translate}}</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'Student'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/student" class="dropdown-item"><i class="fa fa-users"></i> {{'Add
+                Student'|translate}}</a>
+              <a routerLink="/studentlist" class="dropdown-item"><i class="fa fa-list"></i> {{'Student
+                List'|translate}}</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'Course'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/course" class="dropdown-item"><i class="fa fa-plus"></i> {{'Add Course'|translate}}</a>
+              <a routerLink="/courselist" class="dropdown-item"><i class="fa fa-list"></i> {{'Course
+                List'|translate}}</a>
+            </div>
+          </li>
+
+          <li class=" nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'Subject'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/subject" class="dropdown-item"><i class="fa fa-plus"></i> {{'Add
+                Subject'|translate}}</a>
+              <a routerLink="/subjectlist" class="dropdown-item"><i class="fa fa-list"></i> {{'Subject
+                List'|translate}}</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'Marksheet'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/marksheet" class="dropdown-item"><i class="fa fa-plus"></i> {{'Add
+                Marksheet'|translate}}</a>
+              <a routerLink="/marksheetlist" class="dropdown-item"><i class="fa fa-list"></i> {{'Marksheet
+                List'|translate}}</a>
+              <a routerLink="/meritlist" class="dropdown-item"><i class="fa fa-list-ol"></i> {{'Merit
+                List'|translate}}</a>
+              <a routerLink="/getmarksheet" class="dropdown-item"><i class="fa fa-id-card-o"></i> {{'Get
+                Marksheet'|translate}}</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'Faculty'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/faculty" class="dropdown-item"><i class="fa fa-user-circle"></i> {{'Add
+                Faculty'|translate}}</a>
+              <a routerLink="/facultylist" class="dropdown-item"><i class="fa fa-list"></i> {{'Faculty
+                List'|translate}}</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent"
+              data-toggle="dropdown">{{'TimeTable'|translate}}</button>
+            <div class="dropdown-menu">
+              <a routerLink="/timetable" class="dropdown-item"><i class="fa fa-clock-o"></i> {{'Add
+                TimeTable'|translate}}</a>
+              <a routerLink="/timetablelist" class="dropdown-item"><i class="fa fa-list"></i> {{'TimeTable
+                List'|translate}}</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto" style="list-style-type: none;">
+          <li class="nav-item dropdown ml-auto " style="list-style-type: none;">
+            <button type="button" class="btn  dropdown-toggle transparent " data-toggle="dropdown">
+              
+              <i class="fa fa-user-circle" style="font-size: 19px;"> </i> {{firstName}}
+              ({{roleName}})</button>
+            <div class="dropdown-menu dropdown-menu-right  ml-auto">
+              <a class="dropdown-item " routerLink="/myprofile"><i class="fa fa-user hover "></i> {{'My Profile' |
+                translate}}</a>
+              <a class="dropdown-item " routerLink="/changepassword"><i class="fa fa-key hover"></i> {{'Change Password' |
+                translate}}</a>
+              <a class="dropdown-item " (click)="logout();"style="cursor: pointer;"><i class="fa fa-sign-out hover"></i> {{'Sign Out' |
+                translate}}</a>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </nav>
+  </body>
+</div>
+
+
+
+<!-- LOG IN END-->
+
+<!--LOG OUT START-->
+
+<div *ngIf="!checkLogin();">
+
+  <nav class="navbar navbar-expand-lg  navbar-primary transparent  ">
+    <!-- navbar navbar-expand-lg bg-secondary navbar-secondary -->
+
+
+    <a class="navbar-brand" [routerLink]="['/dashboard']"><img class="image-responsive" src='./assets/logo.png' height="30px"></a>
+
+    <button class="navbar-toggler navbar-grey " type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse bg-white " id="navbarNav">
+      <select #locale (change)='changeLocale(locale.value)' class="bg-light text-dark">
+        <option class="text-dark" value="en">English</option>
+        <option class="text-dark" value="hi">{{'Hindi' | translate }}</option>
+      </select>
+      <ul class="nav navbar-nav ml-auto" style="list-style-type: none;">
+        <li class="nav-item dropdown ml-auto" style="list-style-type: none;">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"><i
+              class="fa fa-user-circle" style="font-size: 19px;"> </i> {{'Hi,Guest'| translate}}</button>
+          <div class="dropdown-menu dropdown-menu-right ml-auto">
+
+            <a class="dropdown-item" routerLink="/login"><i class="fa fa-sign-in"></i> &nbsp;{{'Log In' |
+              translate}}</a>
+            <a class="dropdown-item" routerLink="/signup"><i class="fa fa-users"></i> &nbsp;{{'User Registration' |
+              translate}}</a>
+          </div>
+        <li>
+      </ul>
+    </div>
+  </nav>
+</div>

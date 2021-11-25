@@ -1,0 +1,26 @@
+<div *ngIf="checkLogin()">
+    <footer class="footer" style=" position: fixed ; 
+
+left: 0;
+bottom: 0;
+width: 100%;">
+
+        <div class="container-fluid d-flex bg-primary justify-content-center ">
+            <h5 class="text-center text-white float-center "> Copyright&copy; Rays Technologies 2021</h5>
+        </div>
+        </footer>
+</div>
+
+<div *ngIf="!checkLogin();">
+    <footer class="footer" style=" position: fixed ; 
+
+left: 0;
+bottom: 0;
+width: 100%;">
+
+    <div class="container-fluid d-flex bg-secondary justify-content-center ">
+        <h5 class="text-center text-white float-center "> Copyright&copy; Rays Technologies 2021</h5>
+    </div>
+</footer>
+
+</div>

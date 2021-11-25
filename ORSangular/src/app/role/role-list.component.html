@@ -1,0 +1,94 @@
+<body class="container-fluid text-center">
+  <div class="content-wrapper" style="padding-top: 0%; background-image: url(./assets/list.jpg); background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;width:100%;
+  height: 850px;bottom: 0%;">
+  <div class="d-flex bg-primary text-white paddin ">
+      <h1 class="text-center container-fluid ">{{'Role List'|translate}}</h1>
+  </div>
+  <div class="text-center row">
+      <div class="col-3"></div>
+      <form class="form-inline pt-3  ">
+          <div class="form-group  pr-3">
+              <label for="name" class="form-check-label pr-3 ">{{'Name'|translate}} : </label>
+              <input type="text" class="form-control" placeholder="Enter Role Name" name="name"
+                  [(ngModel)]="form.searchParams.name" id="name">
+          </div>
+          <div class="form-group pr-3">
+              <label for="description" class="form-check-label pr-3 ">{{'Description'|translate}} : </label>
+              <input type="text" class="form-control" name="description" id="description"
+                  placeholder="Enter Role Description" [(ngModel)]="form.searchParams.description">
+          </div>
+          <button class="btn-primary btn" (click)="submit()">{{'Search'|translate}}</button>&nbsp;&nbsp;
+          <button class="btn btn-secondary" (click)="reset()">{{'Reset'|translate}}</button>
+      </form>
+  </div>
+  <div class="col-6  " *ngIf="form.error" class="alert alert-danger"> {{form.message}}</div>
+  <div class="col-6 " *ngIf="!form.error && form.message != null && form.message.length()>0"
+      class="alert alert-success">
+      {{form.message}}</div>
+
+  <br>
+
+
+  <br>
+  <div class="p-1">
+      <div class="table-responsive">
+          <table class="table table-bordered table-striped table-hover">
+              <thead class="thead-light text-uppercase">
+                  <tr>
+                      <th>{{'S.No'|translate}}</th>
+                      <th>{{'Name'|translate}}</th>
+                      <th>{{'Description'|translate}}</th>
+                      <th>{{'Edit'|translate}}/{{'Delete'|translate}}</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let role of form.list; let i = index">
+                      <td> {{((form.pageNo)*5)+i+1}} </td>
+                      <td> {{ role.name }} </td>
+                      <td> {{ role.description }} </td>
+                      <td>
+                          <div *ngIf="role.id==1;then read else write"></div>
+                          <ng-template #read><i class="fa fa-edit" style="font-size:20px;color:grey"></i> / <i
+                                  class="fa fa-trash-o" style="font-size:20px;color:grey"></i></ng-template>
+                          <ng-template #write><a (click)="forward( '/role/' +  role.id)" style="cursor: pointer;">
+                                  <i class="fa fa-edit" style="font-size:20px;color:blue"></i>
+                              </a> / <a (click)="delete(role.id)" style="cursor: pointer;">
+                                  <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                              </a></ng-template>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <div class=" col-12 form-inline">
+      <div class="col-4 text-left ">
+          <div *ngIf="form.pageNo>0; then sus else fail"></div>
+          <ng-template #sus>
+              <button (click)="previous()" class="btn btn-success">previous</button>
+          </ng-template>
+          <ng-template #fail>
+              <button (click)="previous()" disabled class="btn btn-light ">previous</button>
+          </ng-template>
+      </div>
+
+      <div class="text-center col-4">
+          <button class="btn-primary btn  " (click)="forward('/role/')">Add</button>
+      </div>
+      <div class="col-3 text-right ">
+          <div *ngIf="form.count>(form.pageSize*(form.pageNo+1));then susN else failN"></div>
+          <ng-template #susN>
+              <button (click)="next()" class="btn btn-success">next</button>
+          </ng-template>
+          <ng-template #failN>
+              <button (click)="next()" disabled class="btn btn-light">next</button>
+          </ng-template>
+      </div>
+  </div>
+  
+  <br><br>
+  </div>
+</body>

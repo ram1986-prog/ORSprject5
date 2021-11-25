@@ -1,0 +1,102 @@
+<body class="container-fluid">
+    <div class="" style="padding-top: 0%; background-image: url(./assets/list.jpg); background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;width:100%;
+    height: 850px;bottom: 0%;">
+        <div class="d-flex bg-primary text-white ">
+            <h1 class="text-center container-fluid ">Get Marksheet</h1>
+        </div>
+        <br>
+
+        <form class="form-inline">
+            <div class="col-4"></div>
+            <div class="form-group  pr-3">
+                <label for="rollNo" class="form-check-label pr-3 ">Roll No : </label>
+                <input type="text" class="form-control" placeholder="Enter Roll No" name="rollNo"
+                    [(ngModel)]="form.rollNo" id="rollNo">
+                    
+            </div>
+            
+
+
+
+            <button class="btn-primary btn" (click)="submit()">Search</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary" (click)="reset()">Reset</button>
+            <span class="text-danger mr-auto mb-auto"> {{form.inputerror.rollNo}} </span>
+        </form>
+        <div class="" *ngIf="this.flag">
+
+            <div class="p-1">
+                <div class="table-responsive ">
+                    <table class="table table-bordered">
+                        <thead class="thread-light ">
+                            <tr>
+                                <th>{{form.data.name|uppercase}}</th>
+                                
+                                <th>{{'Result'|translate}}</th>
+                                
+                                <td>
+                                    <div class="" *ngIf="result(form.data.physics,form.data.maths,form.data.chemistry);then pass else fail ">
+                                    </div>
+                                    <ng-template #pass>
+                                      <div class="text-success font-weight-bold"> Pass </div>
+                                    </ng-template>
+                                    <ng-template #fail>
+                                      <div class="text-danger font-weight-bold "> Fail </div>
+                                    </ng-template>
+                                  </td>
+                            </tr>
+
+                        </thead>
+                        <thead class="thread-light text-uppercase ">
+                            <tr>
+                                <td>Subject</td>
+                                <td>Maximum Marks</td>
+                                <td>Passing Marks</td>
+                                <td>Marks Obtained</td>
+                            </tr>
+                            <tr>
+                                <td>Physics</td>
+                                <td>100</td>
+                                <td>35</td>
+                                <td>{{form.data.physics}}</td>
+                            </tr>
+                            <tr>
+                                <td>Chemistry</td>
+                                <td>100</td>
+                                <td>35</td>
+                                <td>{{form.data.chemistry}}</td>
+                            </tr>
+                            <tr>
+                                <td>Maths</td>
+                                <td>100</td>
+                                <td>35</td>
+                                <td>{{form.data.maths}}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Total:</td>
+                                
+                                <td> {{
+                                    (form.data.physics+form.data.maths+form.data.chemistry)
+                                    }}
+                                    /300</td>
+                                <td>Percentage</td>
+                                <td> {{
+                                    (form.data.physics+form.data.maths+form.data.chemistry)/3
+                                    | number:'1.0-2' }}
+                                </td>
+
+                                
+                            </tr>
+                            
+                        </thead>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
